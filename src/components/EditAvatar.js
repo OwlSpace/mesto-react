@@ -2,12 +2,12 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 
-function EditAvatar(props) {
+function EditAvatar({isOpen, onClose}) {
 
     return (
         <PopupWithForm
-            isOpen={props.isOpen}
-            onClose={props.onClose}
+            isOpen={isOpen}
+            onClose={onClose}
             name={'update-avatar'}
             formName={'update-avatar'}
             title={'Обновить аватар'}

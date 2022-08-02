@@ -14,9 +14,9 @@ import ApprovalPopup from "./ApprovalPopup";
 function App() {
 
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-    const [isAddPlacePopupOpen, setisAddPlacePopupOpen] = React.useState(false)
+    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-    const [selectedCard, setSelectedCard] = React.useState();
+    const [selectedCard, setSelectedCard] = React.useState(null);
 
 
     function handleEditAvatarClick() {
@@ -28,7 +28,7 @@ function App() {
     }
 
     function handleAddPlaceClick() {
-        setisAddPlacePopupOpen(true);
+        setIsAddPlacePopupOpen(true);
     }
 
     function handleCardClick(card) {
@@ -38,7 +38,7 @@ function App() {
     function closeAllPopups() {
         setIsEditAvatarPopupOpen(false);
         setIsEditProfilePopupOpen(false);
-        setisAddPlacePopupOpen(false);
+        setIsAddPlacePopupOpen(false);
         setSelectedCard(null);
     }
 

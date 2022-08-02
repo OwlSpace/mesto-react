@@ -3,11 +3,11 @@ import PopupWithForm from "./PopupWithForm";
 
 
 
-function NewPlaceAddPopup(props) {
+function NewPlaceAddPopup({isOpen, onClose}) {
     return (
         <PopupWithForm
-            isOpen={props.isOpen}
-            onClose={props.onClose}
+            isOpen={isOpen}
+            onClose={onClose}
             name={'card'}
             formName={'card-new'}
             title={'Новое место'}

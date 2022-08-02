@@ -2,11 +2,11 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 
-function ProfilePopup(props) {
+function ProfilePopup({isOpen, onClose}) {
     return (
         <PopupWithForm
-            isOpen={props.isOpen}
-            onClose={props.onClose}
+            isOpen={isOpen}
+            onClose={onClose}
             name={'profile'}
             formName={'user-info'}
             title={'Редактировать профиль'}
