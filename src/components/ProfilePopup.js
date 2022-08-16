@@ -1,8 +1,36 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PopupWithForm from "./PopupWithForm";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 
-function ProfilePopup({isOpen, onClose}) {
+function ProfilePopup({isOpen, onClose, onUpdateUser}) {
+
+    const currentUser = React.useContext(CurrentUserContext);
+    const [name, setName] = React.useState("");
+    const [description, setDescription] = React.useState("");
+
+    useEffect(() => {
+        setName(currentUser.name);
+        setDescription(currentUser.about);
+    }, [currentUser]);
+
+    function handleChangeName(e) {
+        setName(e.target.value);
+    }
+
+    function handleChangeDescription(e) {
+        setDescription(e.target.value);
+    }
+
+    function handleSubmit(evt) {
+        evt.preventDefault();
+        onUpdateUser({
+            name,
+            about: description,
+        });
+    }
+
+
     return (
         <PopupWithForm
             isOpen={isOpen}
@@ -11,19 +39,28 @@ function ProfilePopup({isOpen, onClose}) {
             formName={'user-info'}
             title={'Редактировать профиль'}
             buttenTitle={'Сохранить'}
+            onSubmit={handleSubmit}
         >
             <label className="popup__fields">
-                <input id="input-title" type="text" className="popup__field popup__field_input-name"
-                       placeholder="Имя"
+                <input id="input-title"
+                       type="text"
+                       value={name}
+                       onChange={handleChangeName}
+                       className="popup__field popup__field_input-name"
                        minLength="2"
-                       maxLength="40" required/>
+                       maxLength="40"
+                       required/>
                 <span className="input-title-error popup__error"/>
             </label>
             <label className="popup__fields">
-                <input id="input-job" type="text" className="popup__field popup__field_input-job"
-                       placeholder="Работа"
+                <input id="input-job"
+                       type="text"
+                       value={description}
+                       onChange={handleChangeDescription}
+                       className="popup__field popup__field_input-job"
                        minLength="2"
-                       maxLength="200" required/>
+                       maxLength="200"
+                       required/>
                 <span className="input-job-error popup__error"></span>
             </label>
 
