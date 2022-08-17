@@ -1,18 +1,17 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useContext, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
-
 function ProfilePopup({isOpen, onClose, onUpdateUser}) {
 
-    const currentUser = React.useContext(CurrentUserContext);
-    const [name, setName] = React.useState("");
-    const [description, setDescription] = React.useState("");
+    const currentUser = useContext(CurrentUserContext);
+    const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
 
     useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-    }, [currentUser]);
+    }, [currentUser, isOpen]);
 
     function handleChangeName(e) {
         setName(e.target.value);
@@ -30,7 +29,6 @@ function ProfilePopup({isOpen, onClose, onUpdateUser}) {
         });
     }
 
-
     return (
         <PopupWithForm
             isOpen={isOpen}
@@ -44,7 +42,7 @@ function ProfilePopup({isOpen, onClose, onUpdateUser}) {
             <label className="popup__fields">
                 <input id="input-title"
                        type="text"
-                       value={name}
+                       value={name || ''}
                        onChange={handleChangeName}
                        className="popup__field popup__field_input-name"
                        minLength="2"
@@ -55,7 +53,7 @@ function ProfilePopup({isOpen, onClose, onUpdateUser}) {
             <label className="popup__fields">
                 <input id="input-job"
                        type="text"
-                       value={description}
+                       value={description || ''}
                        onChange={handleChangeDescription}
                        className="popup__field popup__field_input-job"
                        minLength="2"

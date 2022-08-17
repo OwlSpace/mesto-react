@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import '../index.css';
 import Header from "./Header";
 import Main from "./Main";
@@ -11,24 +11,22 @@ import ApprovalPopup from "./ApprovalPopup";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 
-
 function App() {
 
-    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false)
-    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-    const [isApprovalPopup, setIsApprovalPopup] = React.useState(false);
-    const [selectedCard, setSelectedCard] = React.useState(null);
-    const [currentUser, setCurrentUser] = React.useState({
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
+    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+    const [isApprovalPopup, setIsApprovalPopup] = useState(false);
+    const [selectedCard, setSelectedCard] = useState(null);
+    const [currentUser, setCurrentUser] = useState({
             name: '',
             about: '',
             _id: '',
             avatar: '',
         }
     );
-    const [cards, setCards] = React.useState([]);
-    const [cardDelete, setCardDelete] = React.useState({});
-
+    const [cards, setCards] = useState([]);
+    const [cardDelete, setCardDelete] = useState({});
 
     useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -38,7 +36,6 @@ function App() {
             })
             .catch((err) => console.log(err));
     }, []);
-
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true);
@@ -77,7 +74,8 @@ function App() {
                     setCards((state) => state.map((cardState) => cardState._id === card._id ? newCard : cardState)
                     );
                 }
-            );
+            )
+            .catch((err) => console.log(err))
     }
 
     function handleCardDelete() {
@@ -131,7 +129,6 @@ function App() {
             .catch((err) => console.log(err))
 
     }
-
 
     return (
         <div className="App">

@@ -1,7 +1,6 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
-
 function ApprovalPopup({isOpen, onClose, onCardDelete}) {
 
     function handleSubmit(e) {
